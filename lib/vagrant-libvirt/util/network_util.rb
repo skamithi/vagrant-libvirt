@@ -14,7 +14,10 @@ module VagrantPlugins
           management_network_mac = env[:machine].provider_config.management_network_mac
           management_network_guest_ipv6 = env[:machine].provider_config.management_network_guest_ipv6
           logger.info "Using #{management_network_name} at #{management_network_address} as the management network #{management_network_mode} is the mode"
-
+          no_management_interface = env[:machine].provider_config.no_management_interface
+          if no_management_interface
+            logger.info "Not creating a Vagrant Interface. vagrant ssh will not work!"
+          end
           begin
             management_network_ip = IPAddr.new(management_network_address)
           rescue ArgumentError
@@ -44,8 +47,12 @@ module VagrantPlugins
             management_network_options[:mac] = management_network_mac
           end
 
-          # add management network to list of networks to check
-          networks = [ management_network_options ]
+          if no_management_interface
+            networks = []
+          else
+            # add management network to list of networks to check
+            networks = [ management_network_options ]
+          end
 
           env[:machine].config.vm.networks.each do |type, original_options|
             logger.debug "In config found network type #{type} options #{original_options}"

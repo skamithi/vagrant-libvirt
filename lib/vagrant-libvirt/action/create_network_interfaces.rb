@@ -176,8 +176,10 @@ module VagrantPlugins
             end
 
             env[:ui].info I18n.t('vagrant.actions.vm.network.configuring')
-            env[:machine].guest.capability(
-              :configure_networks, networks_to_configure)
+            if networks_to_configure.length > 0
+              env[:machine].guest.capability(
+                :configure_networks, networks_to_configure)
+            end
 
           end
         end

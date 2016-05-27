@@ -443,6 +443,7 @@ configurable at the provider level.
 * `management_network_name` - Name of libvirt network to which all VMs will be connected. If not specified the default is 'vagrant-libvirt'.
 * `management_network_address` - Address of network to which all VMs will be connected. Must include the address and subnet mask. If not specified the default is '192.168.121.0/24'.
 * `management_network_guest_ipv6` - Enable or disable guest-to-guest IPv6 communication. See [here](https://libvirt.org/formatnetwork.html#examplesPrivate6), and [here](http://libvirt.org/git/?p=libvirt.git;a=commitdiff;h=705e67d40b09a905cd6a4b8b418d5cb94eaa95a8) for for more information.
+* `no_management_interface` - Disable the vagrant management interface. Disabled by default. Use only in advanced scenarios where a vagrant management interface is not needed
 
 You may wonder how vagrant-libvirt knows the IP address a VM received.
 Libvirt doesn't provide a standard way to find out the IP address of a running

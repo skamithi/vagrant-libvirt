@@ -24,7 +24,7 @@ module VagrantPlugins
 
           # Only execute specific boot ordering if this is defined in the Vagrant file
           if @boot_order.count >= 1
-          
+
             # If a domain is initially defined with no box or disk or with an explicit boot order, libvirt adds <boot dev="foo">
             # This conflicts with an explicit boot_order configuration, so we need to remove it from the domain xml and feed it back.
             # Also see https://bugzilla.redhat.com/show_bug.cgi?id=1248514 as to why we have to do this after all devices have been defined.
@@ -36,7 +36,7 @@ module VagrantPlugins
             # Parse the XML and find each defined drive and network interfacee
             hd = xml.search("/domain/devices/disk[@device='disk']")
             cdrom = xml.search("/domain/devices/disk[@device='cdrom']")
-            network = xml.search("/domain/devices/interface[@type='network']")
+            network = xml.search("/domain/devices/interface")
 
             # Generate an array per device group and a flattened array from all of those
             devices = {"hd" => hd, "cdrom" => cdrom, "network" => network}

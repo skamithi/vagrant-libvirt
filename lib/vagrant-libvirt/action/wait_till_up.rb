@@ -28,6 +28,13 @@ module VagrantPlugins
               :error_message => "Domain #{env[:machine].id} not found"
           end
 
+          # Do not bother checking for Vagrant interface connectivity if
+          # no management interface is defined. Just exit.
+          if env[:machine].provider_config.no_management_interface
+             @app.call(env)
+             return
+          end
+
           # Wait for domain to obtain an ip address. Ip address is searched
           # from arp table, either localy or remotely via ssh, if libvirt
           # connection was done via ssh.
@@ -50,7 +57,7 @@ module VagrantPlugins
           end
           @logger.info("Got IP address #{env[:ip_address]}")
           @logger.info("Time for getting IP: #{env[:metrics]["instance_ip_time"]}")
-          
+
           # Machine has ip address assigned, now wait till we are able to
           # connect via ssh.
           env[:metrics]["instance_ssh_time"] = Util::Timer.time do
@@ -65,7 +72,7 @@ module VagrantPlugins
                 break if env[:interrupted]
                 break if env[:machine].communicate.ready?
                 sleep 2
-              end            
+              end
             end
           end
           # if interrupted above, just terminate immediately
@@ -74,7 +81,7 @@ module VagrantPlugins
 
           # Booted and ready for use.
           #env[:ui].info(I18n.t("vagrant_libvirt.ready"))
-          
+
           @app.call(env)
         end
 
