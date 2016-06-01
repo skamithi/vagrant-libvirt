@@ -14,8 +14,8 @@ module VagrantPlugins
           management_network_mac = env[:machine].provider_config.management_network_mac
           management_network_guest_ipv6 = env[:machine].provider_config.management_network_guest_ipv6
           logger.info "Using #{management_network_name} at #{management_network_address} as the management network #{management_network_mode} is the mode"
-          no_management_interface = env[:machine].provider_config.no_management_interface
-          if no_management_interface
+          no_vagrant_interface = env[:machine].provider_config.no_vagrant_interface
+          if no_vagrant_interface
             logger.info "Not creating a Vagrant Interface. vagrant ssh will not work!"
           end
           begin
@@ -47,7 +47,7 @@ module VagrantPlugins
             management_network_options[:mac] = management_network_mac
           end
 
-          if no_management_interface
+          if no_vagrant_interface
             networks = []
           else
             # add management network to list of networks to check

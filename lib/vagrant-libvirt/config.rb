@@ -49,7 +49,7 @@ module VagrantPlugins
       attr_accessor :management_network_mode
       attr_accessor :management_network_mac
       attr_accessor :management_network_guest_ipv6
-      attr_accessor :no_management_interface
+      attr_accessor :no_vagrant_interface
 
       # Default host prefix (alternative to use project folder name)
       attr_accessor :default_prefix
@@ -131,7 +131,7 @@ module VagrantPlugins
         @management_network_mode = UNSET_VALUE
         @management_network_mac  = UNSET_VALUE
         @management_network_guest_ipv6  = UNSET_VALUE
-        @no_management_interface = false
+        @no_vagrant_interface = false
 
         # Domain specific settings.
         @uuid              = UNSET_VALUE

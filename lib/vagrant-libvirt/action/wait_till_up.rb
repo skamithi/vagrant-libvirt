@@ -30,7 +30,7 @@ module VagrantPlugins
 
           # Do not bother checking for Vagrant interface connectivity if
           # no management interface is defined. Just exit.
-          if env[:machine].provider_config.no_management_interface
+          if env[:machine].provider_config.no_vagrant_interface
              @app.call(env)
              return
           end
